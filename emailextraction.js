@@ -1,11 +1,22 @@
 var fs = require('fs');
 
-// const pattern = new RegExp("/\S@softwire.com/g"); 
-const pattern = /\s[\w|.'_%+\-]+(@softwire.com)\s/g;
+const pattern = /\b[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,})\b/gi;
+const domainCounts = {};
 
 fs.readFile('test.txt', 'utf8', function (err, data) {
     let matchedEmails = data.match(pattern);
-    console.log(matchedEmails.length);
+
+    for (i = 0; i < matchedEmails.length; i++) {
+        let domain = matchedEmails[i].split("@")[1];
+
+        if (domainCounts.hasOwnProperty(domain)) {
+            domainCounts[domain] += 1;
+        } else {
+            domainCounts[domain] = 1;
+        };
+    };
+
+    console.log(domainCounts);
 });
 
 

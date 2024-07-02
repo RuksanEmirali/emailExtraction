@@ -16,7 +16,14 @@ fs.readFile('test.txt', 'utf8', function (err, data) {
         };
     };
 
-    console.log(domainCounts);
+    // return ten most common domains in order
+    let sortableDomainCounts = Object.entries(domainCounts);
+
+    let sortedCounts = sortableDomainCounts.sort((a, b) => b[1] - a[1])
+
+    for (let i = 0; i < 10; i++) {
+        console.log(`${sortedCounts[i][0]}: ${sortedCounts[i][1]}`)
+    }
 });
 
 
